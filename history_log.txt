@@ -1,0 +1,7 @@
+commit 664b20dfd17d13eaa52160dfa6f3d30e8df85233
+Author: UntamedWW <UntamedWW@github.com>
+Date:   Fri May 29 18:24:44 2026 +0000
+
+    Add register page and logic.
+
+ 41 files changed, 111 insertions(+), 16 deletions(-)

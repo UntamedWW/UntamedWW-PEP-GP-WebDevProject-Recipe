@@ -30,3 +30,35 @@
     <script src="login-page.js"></script>
 </body>
 </html>
+
+
+<!-- 
+### 2️⃣ User Login and Logout
+
+📂 Location: `frontend/login/` and `frontend/recipe/`
+
+Files:
+
+- `login-page.html`, `login-page.js`
+- `recipe-page.html`, `recipe-page.js`
+
+**Requirements:**
+
+- Login form should include username and password fields
+- JS should:
+
+  - Create a login request with `username` and `password`
+  - Send a POST request to `http://localhost:8081/login`
+  - On success:
+    - Parse the response (token and admin flag separated by space)
+    - Store token in `sessionStorage` under `auth-token`
+    - Store admin flag under `is-admin`
+    - Redirect to the recipe page
+  - On failure: show an alert
+
+- Logout logic (in `recipe-page.js`) should:
+  - Send POST request to `/logout` with auth token
+  - Clear `sessionStorage` keys
+  - Redirect to login page
+
+--- -->
