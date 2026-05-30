@@ -69,8 +69,8 @@ async function processLogin() {
         // TODO: For any other status code
         // - Alert the user with a generic error like "Unknown issue!"
 
-        const username = usernameInput.value;
-        const password = passwordInput.value;
+        const username = usernameInput.value.trim();
+        const password = passwordInput.value.trim();
 
         if(!username || !password) {
             alert("Username or password is empty!");
@@ -96,19 +96,32 @@ async function processLogin() {
     
         const response = await fetch(`${BASE_URL}/login`, requestOptions);
 
-        if(request.status == 200) {
+        if(response.status === 200) {
             const responseText = await response.text();
 
             const parts = responseText.split(" ");
 
             const token = parts[0];
+            const isAdmin = parts[1];
 
-            window.location.href = "../recipe/recipe-page.html"
-         }
+            sessionStorage.setItem("auth-token", token);
+            sessionStorage.setItem("is-admin", isAdmin);
+
+            setTimeout (() => {
+                window.location.href = "../recipe/recipe-page.html"
+            }, 500);
+
+        } else if( response.status === 401){
+            alert("Wrong username or password!");
+        } else {
+            alert("Unknown issue!")
+        }
 
     } catch (error) {
         // TODO: Handle any network or unexpected errors
         // - Log the error and alert the user
+        console.log(error);
+        alert("Something`s wrong, try again later!");
     }
 }
 
