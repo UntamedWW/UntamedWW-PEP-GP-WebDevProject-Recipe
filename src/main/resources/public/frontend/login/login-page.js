@@ -21,6 +21,7 @@ var logoutButton = document.getElementById("logout-button");
  */
 
 loginButton.addEventListener("click", processLogin);
+logoutButton.addEventListener("click", processLogout)
 
 /**
  * TODO: Process Login Function
@@ -123,5 +124,13 @@ async function processLogin() {
         console.log(error);
         alert("Something`s wrong, try again later!");
     }
+}
+
+async function processLogout() {
+    sessionStorage.removeItem("auth-token");
+    sessionStorage.removeItem("is-admin");
+
+    window.location.href = "../login/login-page.html"
+    
 }
 
