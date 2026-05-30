@@ -11,12 +11,16 @@ const BASE_URL = "http://localhost:8081"; // backend URL
  * - login button
  * - logout button (optional, for token testing)
  */
-
+var usernameInput = document.getElementById("login-input");
+var passwordInput = document.getElementById("password-input");
+var loginButton = document.getElementById("login-button");
+var logoutButton = document.getElementById("logout-button");
 /* 
  * TODO: Add click event listener to login button
  * - Call processLogin on click
  */
 
+loginButton.addEventListener("click", processLogin);
 
 /**
  * TODO: Process Login Function
@@ -45,21 +49,6 @@ async function processLogin() {
 
     // TODO: Create a requestBody object with username and password
 
-    const requestOptions = {
-        method: "POST",
-        mode: "cors",
-        cache: "no-cache",
-        credentials: "same-origin",
-        headers: {
-            "Content-Type": "application/json",
-            "Access-Control-Allow-Origin": "*",
-            "Access-Control-Allow-Headers": "*"
-        },
-        redirect: "follow",
-        referrerPolicy: "no-referrer",
-        body: JSON.stringify(requestBody)
-    };
-
     try {
         // TODO: Send POST request to http://localhost:8081/login using fetch with requestOptions
 
@@ -79,6 +68,43 @@ async function processLogin() {
 
         // TODO: For any other status code
         // - Alert the user with a generic error like "Unknown issue!"
+
+        const username = usernameInput.value;
+        const password = passwordInput.value;
+
+        if(!username || !password) {
+            alert("Username or password is empty!");
+            return
+        }
+    
+        const requestBody = { username, password };
+
+        const requestOptions = {
+            method: "POST",
+            mode: "cors",
+            cache: "no-cache",
+            credentials: "same-origin",
+            headers: {
+                "Content-Type": "application/json",
+                "Access-Control-Allow-Origin": "*",
+                "Access-Control-Allow-Headers": "*"
+            },
+            redirect: "follow",
+            referrerPolicy: "no-referrer",
+            body: JSON.stringify(requestBody)        
+        };
+    
+        const response = await fetch(`${BASE_URL}/login`, requestOptions);
+
+        if(request.status == 200) {
+            const responseText = await response.text();
+
+            const parts = responseText.split(" ");
+
+            const token = parts[0];
+
+            window.location.href = "../recipe/recipe-page.html"
+         }
 
     } catch (error) {
         // TODO: Handle any network or unexpected errors
