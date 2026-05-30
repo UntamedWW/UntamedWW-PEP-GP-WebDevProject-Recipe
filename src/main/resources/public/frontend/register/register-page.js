@@ -89,10 +89,9 @@ async function processRegistration() {
             alert("Registration failed");
         }
 
-    }catch(error){
+    } catch(error){
         console.error(error);
         alert("Oops, something is wrong");
-
     }
 
     // Example placeholder:
