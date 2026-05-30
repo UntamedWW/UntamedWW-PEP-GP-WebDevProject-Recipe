@@ -17,6 +17,21 @@ window.addEventListener("DOMContentLoaded", () => {
      * - Search input
     */
 
+    const addRecipeNameInput = document.getElementById("add-recipe-name-input");
+    const addRecipeInstructionsInput = document.getElementById("add-recipe-instructions-input");
+
+    const updateRecipeNameInput = document.getElementById("update-recipe-name-input");
+    const updateRecipeInstructionsInput = document.getElementById("update-recipe-instructions-input");
+
+    const deleteRecipeNameInput = document.getElementById("delete-recipe-name-input");
+
+    const recipeList = document.getElementById("recipe-list");
+
+    const adminLink = document.getElementById("admin-link");
+    const logoutButton = document.getElementById("logout-button");
+
+    const searchInput = document.getElementById("search-input");
+
     /*
      * TODO: Show logout button if auth-token exists in sessionStorage
      */
