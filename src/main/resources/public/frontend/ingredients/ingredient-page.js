@@ -137,23 +137,26 @@ async function deleteIngredient() {
             return;
         }
 
-        const items = Array.from(ingredientListContainer.getElementsByTagName("li"));
-
-        const index = items.findIndex(li => li.textContent.trim() === name);
-
-        if (index === -1) {
+        const ingredientToDelete = ingredients.find(
+            ingredient => ingredient.name === name
+        );
+        
+        if (!ingredientToDelete) {
             alert("Ingredient not found!");
             return;
         }
-
+        
         const token = sessionStorage.getItem("auth-token");
-
-        const response = await fetch(`${BASE_URL}/ingredients/${index}`, {
-            method: "DELETE",
-            headers: {
-                "Authorization": `Bearer ${token}`
+        
+        const response = await fetch(
+            `${BASE_URL}/ingredients/${ingredientToDelete.id}`,
+            {
+                method: "DELETE",
+                headers: {
+                    "Authorization": `Bearer ${token}`
+                }
             }
-        });
+        );
 
         if (response.ok) {
             deleteIngredientNameInput.value = "";
