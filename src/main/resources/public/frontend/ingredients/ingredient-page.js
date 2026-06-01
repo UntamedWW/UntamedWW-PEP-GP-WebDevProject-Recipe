@@ -12,20 +12,34 @@ const BASE_URL = "http://localhost:8081"; // backend URL
  * - searchInput (optional for future use)
  * - adminLink (if visible conditionally)
  */
+const addIngredientNameInput = document.getElementById("add-ingredient-name-input");
+const deleteIngredientNameInput = document.getElementById("delete-ingredient-name-input");
+
+const ingredientListContainer = document.getElementById("ingredient-list");
+
+const backLink = document.getElementById("back-link");
 
 /* 
  * TODO: Attach 'onclick' events to:
  * - "add-ingredient-submit-button" → addIngredient()
  * - "delete-ingredient-submit-button" → deleteIngredient()
  */
+const addIngredientButton = document.getElementById("add-ingredient-submit-button");
+const deleteIngredientButton = document.getElementById("delete-ingredient-submit-button");
+
+addIngredientButton.onclick = addIngredient;
+deleteIngredientButton.onclick = deleteIngredient;
 
 /*
  * TODO: Create an array to keep track of ingredients
  */
 
+let ingredients = [];
+
 /* 
  * TODO: On page load, call getIngredients()
  */
+getIngredients()
 
 
 /**
@@ -41,6 +55,38 @@ const BASE_URL = "http://localhost:8081"; // backend URL
  */
 async function addIngredient() {
     // Implement add ingredient logic here
+    try {
+        const name = addIngredientNameInput.value.trim();
+
+        if (!name) {
+            alert("Please enter ingredient name!");
+            return;
+        }
+
+        const token = sessionStorage.getItem("auth-token");
+
+        const response = await fetch(`${BASE_URL}/ingredients`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${token}`
+            },
+            body: JSON.stringify({
+                name: name
+            })
+        });
+
+        if (response.ok) {
+            addIngredientNameInput.value = "";
+
+            getIngredients();
+        } else {
+            alert("Failed to add ingredient!");
+        }
+
+    } catch (error) {
+        alert("Something went wrong!");
+    }
 }
 
 
@@ -53,8 +99,20 @@ async function addIngredient() {
  * - Call refreshIngredientList() to display them
  * - On error: alert the user
  */
-async function getIngredients() {
+async function c() {
     // Implement get ingredients logic here
+    try {
+        const response = await fetch(`${BASE_URL}/ingredients`);
+
+        const data = await response.json();
+
+        ingredients = data;
+
+        refreshIngredientList(ingredients);
+
+    } catch (error) {
+        alert("Failed to load ingredients!");
+    }
 }
 
 

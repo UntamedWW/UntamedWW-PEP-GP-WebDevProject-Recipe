@@ -1,7 +1,7 @@
-commit 4e5e3bddfe471f5e1d4dc0b70806b6a93b93c2e9
+commit 4e705a5208b9f65fcb22ac50b04b66e3d0263ae5
 Author: UntamedWW <UntamedWW@github.com>
-Date:   Mon Jun 1 18:45:53 2026 +0000
+Date:   Mon Jun 1 18:50:58 2026 +0000
 
-    Add processLogout and refresh recipe list.
+    fixed small bags in recipe-page.js.
 
- 1 file changed, 31 insertions(+), 1 deletion(-)
+ 2 files changed, 14 insertions(+), 20 deletions(-)
