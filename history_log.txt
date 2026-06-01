@@ -1,7 +1,7 @@
-commit 323ea58d8b0700dd24e7ce717221f5524005c463
+commit 4e5e3bddfe471f5e1d4dc0b70806b6a93b93c2e9
 Author: UntamedWW <UntamedWW@github.com>
-Date:   Mon Jun 1 17:42:37 2026 +0000
+Date:   Mon Jun 1 18:45:53 2026 +0000
 
-    fix recipe update
+    Add processLogout and refresh recipe list.
 
- 2 files changed, 5 insertions(+), 5 deletions(-)
+ 1 file changed, 31 insertions(+), 1 deletion(-)

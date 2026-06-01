@@ -48,7 +48,7 @@ window.addEventListener("DOMContentLoaded", () => {
      * TODO: Show admin link if is-admin flag in sessionStorage is "true"
      */
     const admin = sessionStorage.getItem("is-admin");
-    if(admin){
+    if(admin == "true"){
         adminLink.style.display = "block";
     }
  
@@ -128,7 +128,7 @@ window.addEventListener("DOMContentLoaded", () => {
             });
 
             if (response.ok) {
-                addRecipeInput.value = "";
+                addRecipeNameInput.value = "";
                 addRecipeInstructionsInput.value = "";
 
                 getRecipes();
@@ -261,7 +261,7 @@ window.addEventListener("DOMContentLoaded", () => {
         try{
             const response = await fetch(`${BASE_URL}/recipes`);
 
-            const recipes = response.json();
+            recipes = await response.json();
 
             refreshRecipeList(recipes);
         } catch(error){
@@ -276,22 +276,16 @@ window.addEventListener("DOMContentLoaded", () => {
      * - Append to list container
      */
     function refreshRecipeList(recipes) {
-        // Implement refresh logic here
-        try{
-            recipeList.innerHTML = "";
+    // Implement refresh logic here
+        recipeList.innerHTML = "";
 
-            recipes.forEach(recipe => {
-                const li = document.createElement("li");
+        recipes.forEach(recipe => {
+            const li = document.createElement("li");
 
-                li.textContent = `${recipe.name} - ${recipe.instructions}`;
+            li.textContent = `${recipe.name} - ${recipe.instructions}`;
 
-                recipeList.appendChild(li)
-            })
-            
-
-        } catch(error){
-            alert("Oops, something is wrong. Try again later !");
-        }
+            recipeList.appendChild(li)
+        })
     }
 
     /**
