@@ -275,9 +275,19 @@ window.addEventListener("DOMContentLoaded", () => {
      * - Create <li> elements for each recipe with name + instructions
      * - Append to list container
      */
-    function refreshRecipeList() {
+    function refreshRecipeList(recipes) {
         // Implement refresh logic here
         try{
+            recipeList.innerHTML = "";
+
+            recipes.forEach(recipe => {
+                const li = document.createElement("li");
+
+                li.textContent = `${recipe.name} - ${recipe.instructions}`;
+
+                recipeList.appendChild(li)
+            })
+            
 
         } catch(error){
             alert("Oops, something is wrong. Try again later !");
@@ -292,6 +302,26 @@ window.addEventListener("DOMContentLoaded", () => {
      * - On failure: alert the user
      */
     async function processLogout() {
+        try{
+            const token = sessionStorage.getItem("auth-token");
+
+            const response = await fetch(`${BASE_URL}/logout`, {
+                method: "POST",
+                headers: {
+                    "Authorization": `Bearer ${token}`
+                }
+            });
+
+            if(response.ok){
+                sessionStorage.clear();
+                window.location.href = "../login/login-page.html";
+            } else {
+                alert("Logout failed!");
+            }
+
+        }catch(error){
+            alert("Oops, something is wrong. Try again later !");
+        }
         // Implement logout logic here
     }
 
