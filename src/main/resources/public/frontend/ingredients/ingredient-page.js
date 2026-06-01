@@ -4,14 +4,8 @@
 
 const BASE_URL = "http://localhost:8081"; // backend URL
 
-/* 
- * TODO: Get references to various DOM elements
- * - addIngredientNameInput
- * - deleteIngredientNameInput
- * - ingredientListContainer
- * - searchInput (optional for future use)
- * - adminLink (if visible conditionally)
- */
+
+//  References to various DOM elements
 const addIngredientNameInput = document.getElementById("add-ingredient-name-input");
 const deleteIngredientNameInput = document.getElementById("delete-ingredient-name-input");
 
@@ -19,42 +13,24 @@ const ingredientListContainer = document.getElementById("ingredient-list");
 
 const backLink = document.getElementById("back-link");
 
-/* 
- * TODO: Attach 'onclick' events to:
- * - "add-ingredient-submit-button" → addIngredient()
- * - "delete-ingredient-submit-button" → deleteIngredient()
- */
+
+// 'onclick' events to:
 const addIngredientButton = document.getElementById("add-ingredient-submit-button");
 const deleteIngredientButton = document.getElementById("delete-ingredient-submit-button");
 
 addIngredientButton.onclick = addIngredient;
 deleteIngredientButton.onclick = deleteIngredient;
 
-/*
- * TODO: Create an array to keep track of ingredients
- */
 
+// An array to keep track of ingredients
 let ingredients = [];
 
-/* 
- * TODO: On page load, call getIngredients()
- */
 getIngredients()
 
 
-/**
- * TODO: Add Ingredient Function
- * 
- * Requirements:
- * - Read and trim value from addIngredientNameInput
- * - Validate input is not empty
- * - Send POST request to /ingredients
- * - Include Authorization token from sessionStorage
- * - On success: clear input, call getIngredients() and refreshIngredientList()
- * - On failure: alert the user
- */
+
+// Ingredient Function
 async function addIngredient() {
-    // Implement add ingredient logic here
     try {
         const name = addIngredientNameInput.value.trim();
 
@@ -90,17 +66,8 @@ async function addIngredient() {
 }
 
 
-/**
- * TODO: Get Ingredients Function
- * 
- * Requirements:
- * - Fetch all ingredients from backend
- * - Store result in `ingredients` array
- * - Call refreshIngredientList() to display them
- * - On error: alert the user
- */
+//  Fet ingredients Function
 async function getIngredients() {
-    // Implement get ingredients logic here
     try {
         const response = await fetch(`${BASE_URL}/ingredients`);
 
@@ -116,19 +83,8 @@ async function getIngredients() {
 }
 
 
-/**
- * TODO: Delete Ingredient Function
- * 
- * Requirements:
- * - Read and trim value from deleteIngredientNameInput
- * - Search ingredientListContainer's <li> elements for matching name
- * - Determine ID based on index (or other backend logic)
- * - Send DELETE request to /ingredients/{id}
- * - On success: call getIngredients() and refreshIngredientList(), clear input
- * - On failure or not found: alert the user
- */
+// Delete Ingredient Function
 async function deleteIngredient() {
-    // Implement delete ingredient logic here
     try{
         const name = deleteIngredientNameInput.value.trim();
 
@@ -172,18 +128,9 @@ async function deleteIngredient() {
 }
 
 
-/**
- * TODO: Refresh Ingredient List Function
- * 
- * Requirements:
- * - Clear ingredientListContainer
- * - Loop through `ingredients` array
- * - For each ingredient:
- *   - Create <li> and inner <p> with ingredient name
- *   - Append to container
- */
+
+//Refresh Ingredient List Function
 function refreshIngredientList() {
-    // Implement ingredient list rendering logic here
     try {
         ingredientListContainer.innerHTML = "";
 

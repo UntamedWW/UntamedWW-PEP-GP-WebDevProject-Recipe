@@ -4,48 +4,16 @@
 */
 const BASE_URL = "http://localhost:8081"; // backend URL
 
-/* 
- * TODO: Get references to DOM elements
- * - username input
- * - password input
- * - login button
- * - logout button (optional, for token testing)
- */
 var usernameInput = document.getElementById("login-input");
 var passwordInput = document.getElementById("password-input");
 var loginButton = document.getElementById("login-button");
 var logoutButton = document.getElementById("logout-button");
-/* 
- * TODO: Add click event listener to login button
- * - Call processLogin on click
- */
 
 loginButton.addEventListener("click", processLogin);
 logoutButton.addEventListener("click", processLogout)
 
-/**
- * TODO: Process Login Function
- * 
- * Requirements:
- * - Retrieve values from username and password input fields
- * - Construct a request body with { username, password }
- * - Configure request options for fetch (POST, JSON headers)
- * - Send request to /login endpoint
- * - Handle responses:
- *    - If 200: extract token and isAdmin from response text
- *      - Store both in sessionStorage
- *      - Redirect to recipe-page.html
- *    - If 401: alert user about incorrect login
- *    - For others: show generic alert
- * - Add try/catch to handle fetch/network errors
- * 
- * Hints:
- * - Use fetch with POST method and JSON body
- * - Use sessionStorage.setItem("key", value) to store auth token and admin flag
- * - Use `window.location.href` for redirection
- */
+//Login function
 async function processLogin() {
-    // TODO: Retrieve username and password from input fields
     try {
         const username = usernameInput.value.trim();
         const password = passwordInput.value.trim();
@@ -96,8 +64,6 @@ async function processLogin() {
         }
 
     } catch (error) {
-        // TODO: Handle any network or unexpected errors
-        // - Log the error and alert the user
         console.log(error);
         alert("Something`s wrong, try again later!");
     }

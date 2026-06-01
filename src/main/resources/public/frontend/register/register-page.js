@@ -24,26 +24,6 @@ registerButton.addEventListener("click", processRegistration);
 
 /**
  * TODO: Process Registration Function
- * 
- * Requirements:
- * - Retrieve username, email, password, and repeat password from input fields
- * - Validate all fields are filled
- * - Check that password and repeat password match
- * - Create a request body with username, email, and password
- * - Define requestOptions using method POST and proper headers
- * 
- * Fetch Logic:
- * - Send POST request to `${BASE_URL}/register`
- * - If status is 201:
- *      - Redirect user to login page
- * - If status is 409:
- *      - Alert that user/email already exists
- * - Otherwise:
- *      - Alert generic registration error
- * 
- * Error Handling:
- * - Wrap in try/catch
- * - Log error and alert user
  */
 async function processRegistration() {
 
@@ -93,24 +73,4 @@ async function processRegistration() {
         console.error(error);
         alert("Oops, something is wrong");
     }
-
-    // Example placeholder:
-        // const registerBody = { username, email, password };
-
-    // await fetch(...)
 }
-
-
-// **Requirements:**
-
-// - Registration form should include:
-//   - Username, Email, Password, Repeat Password fields
-//   - Submit button with ID `register-button`
-// - JS should:
-//   - Validate that all inputs are filled
-//   - Ensure password and repeated password match
-//   - Create a registration object and send a POST request to `http://localhost:8081/register`
-//   - On success: redirect to login page
-//   - On failure: show an alert 
-  
-//   
