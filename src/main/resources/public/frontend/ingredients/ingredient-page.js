@@ -99,7 +99,7 @@ async function addIngredient() {
  * - Call refreshIngredientList() to display them
  * - On error: alert the user
  */
-async function c() {
+async function getIngredients() {
     // Implement get ingredients logic here
     try {
         const response = await fetch(`${BASE_URL}/ingredients`);
@@ -139,7 +139,7 @@ async function deleteIngredient() {
 
         const items = Array.from(ingredientListContainer.getElementsByTagName("li"));
 
-        const index = items.findIndex(li => li.textContent === name);
+        const index = items.findIndex(li => li.textContent.trim() === name);
 
         if (index === -1) {
             alert("Ingredient not found!");
