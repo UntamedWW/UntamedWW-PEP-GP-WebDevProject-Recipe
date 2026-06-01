@@ -1,7 +1,7 @@
-commit 4577d88fa6e04fa5966d0f68fbeccd94c250ef28
+commit 323ea58d8b0700dd24e7ce717221f5524005c463
 Author: UntamedWW <UntamedWW@github.com>
-Date:   Mon Jun 1 17:42:08 2026 +0000
+Date:   Mon Jun 1 17:42:37 2026 +0000
 
-    Add add-update recipe
+    fix recipe update
 
- 1 file changed, 109 insertions(+), 1 deletion(-)
+ 2 files changed, 5 insertions(+), 5 deletions(-)

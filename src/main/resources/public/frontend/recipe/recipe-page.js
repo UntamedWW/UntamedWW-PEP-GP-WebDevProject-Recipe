@@ -181,7 +181,7 @@ window.addEventListener("DOMContentLoaded", () => {
                 },
                 body: JSON.stringify({
                     name: recipeName,
-                    instructions: recipeIn
+                    instructions: recipeInstruction
                 })     
             });
 
@@ -206,6 +206,48 @@ window.addEventListener("DOMContentLoaded", () => {
      */
     async function deleteRecipe() {
         // Implement delete logic here
+        try{
+            const recipeName = deleteRecipeNameInput.value;
+
+            if(!recipeName){
+                alert("Please, put recipe name!");
+                return;
+            }
+
+            const token = sessionStorage.getItem("auth-token");
+
+            const recipesResponse = await fetch(`${BASE_URL}/recipes`);
+            const recipes = await recipesResponse.json(); 
+            
+            const recipeToDelete = recipes.find(
+                recipe => recipe.name === recipeName
+            );
+
+            if (!recipeToDelete) {
+                alert("Recipe not found!");
+                return;
+            }
+
+            const response = await fetch(`${BASE_URL}/recipes/${recipeToDelete.id}`, {
+                method: "DELETE",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${token}`,
+                },
+                body: JSON.stringify({
+                    name: recipeName
+                })     
+            });
+
+            if (response.ok) {
+                deleteRecipeNameInput.value = "";
+
+                getRecipes();
+            }
+
+        }catch(error){
+            alert("Oops, something is wrong. Try again later !");
+        }
     }
 
     /**
@@ -216,6 +258,15 @@ window.addEventListener("DOMContentLoaded", () => {
      */
     async function getRecipes() {
         // Implement get logic here
+        try{
+            const response = await fetch(`${BASE_URL}/recipes`);
+
+            const recipes = response.json();
+
+            refreshRecipeList(recipes);
+        } catch(error){
+            alert("Oops, something is wrong. Try again later !");
+        }
     }
 
     /**
@@ -226,6 +277,11 @@ window.addEventListener("DOMContentLoaded", () => {
      */
     function refreshRecipeList() {
         // Implement refresh logic here
+        try{
+
+        } catch(error){
+            alert("Oops, something is wrong. Try again later !");
+        }
     }
 
     /**
