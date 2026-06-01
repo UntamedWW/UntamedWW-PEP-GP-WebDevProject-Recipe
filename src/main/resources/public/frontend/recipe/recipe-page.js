@@ -19,11 +19,14 @@ window.addEventListener("DOMContentLoaded", () => {
 
     const addRecipeNameInput = document.getElementById("add-recipe-name-input");
     const addRecipeInstructionsInput = document.getElementById("add-recipe-instructions-input");
+    const addRecipeButton = document.getElementById("add-recipe-submit-input");
 
     const updateRecipeNameInput = document.getElementById("update-recipe-name-input");
     const updateRecipeInstructionsInput = document.getElementById("update-recipe-instructions-input");
+    const updateRecipeButton = document.getElementById("update-recipe-submit-input");
 
     const deleteRecipeNameInput = document.getElementById("delete-recipe-name-input");
+    const deleteRecipeButton = document.getElementById("delete-recipe-submit-input");
 
     const recipeList = document.getElementById("recipe-list");
 
@@ -31,15 +34,24 @@ window.addEventListener("DOMContentLoaded", () => {
     const logoutButton = document.getElementById("logout-button");
 
     const searchInput = document.getElementById("search-input");
+    const searchButton = document.getElementById("search-button");
 
     /*
      * TODO: Show logout button if auth-token exists in sessionStorage
      */
+    const auth = sessionStorage.getItem("auth-token");
+    if(auth){
+        logoutButton.style.display = "block";
+    }
 
     /*
      * TODO: Show admin link if is-admin flag in sessionStorage is "true"
      */
-
+    const admin = sessionStorage.getItem("is-admin");
+    if(admin){
+        adminLink.style.display = "block";
+    }
+ 
     /*
      * TODO: Attach event handlers
      * - Add recipe button → addRecipe()
@@ -49,9 +61,16 @@ window.addEventListener("DOMContentLoaded", () => {
      * - Logout button → processLogout()
      */
 
+    addRecipeButton.addEventListener("click", addRecipe);
+    updateRecipeButton.addEventListener("click", updateRecipe);
+    deleteRecipeButton.addEventListener("click", deleteRecipe);
+    searchButton.addEventListener("click", searchRecipes);
+    logoutButton.addEventListener("click", processLogout)
+
     /*
      * TODO: On page load, call getRecipes() to populate the list
      */
+    getRecipes();
 
 
     /**
@@ -63,6 +82,16 @@ window.addEventListener("DOMContentLoaded", () => {
      */
     async function searchRecipes() {
         // Implement search logic here
+        try{
+            const name = searchInput.value;
+            const response = await fetch (`${BASE_URL}/recipes?name=${name}`)
+            const recipes = await response.json();
+
+            refreshRecipeList(recipes);
+
+        } catch(error){
+            alert("Failed!");
+        }
     }
 
     /**
@@ -75,6 +104,40 @@ window.addEventListener("DOMContentLoaded", () => {
      */
     async function addRecipe() {
         // Implement add logic here
+        try{
+            const recipeName = addRecipeNameInput.value;
+            const recipe = addRecipeInstructionsInput.value;
+
+            if(!recipeName || !recipe ){
+                alert("Please, put recipe name and instruction!");
+                return;
+            }
+
+            const token = sessionStorage.getItem("auth-token");
+
+            const response = await fetch(`${BASE_URL}/recipes`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${token}`,
+                },
+                body: JSON.stringify({
+                    name: recipeName,
+                    instructions: recipe
+                })     
+            });
+
+            if (response.ok) {
+                addRecipeInput.value = "";
+                addRecipeInstructionsInput.value = "";
+
+                getRecipes();
+            }
+
+
+        }catch(error){
+            alert("Oops, something is wrong. Try again later !");
+        }
     }
 
     /**
@@ -87,6 +150,51 @@ window.addEventListener("DOMContentLoaded", () => {
      */
     async function updateRecipe() {
         // Implement update logic here
+        try{
+            const recipeName = updateRecipeNameInput.value;
+            const recipeInstruction = updateRecipeInstructionsInput.value;
+
+            if(!recipeName || !recipeInstruction ){
+                alert("Please, put recipe name and instruction!");
+                return;
+            }
+
+            const token = sessionStorage.getItem("auth-token");
+
+            const recipesResponse = await fetch(`${BASE_URL}/recipes`);
+            const recipes = await recipesResponse.json(); 
+            
+            const recipeToUpdate = recipes.find(
+                recipe => recipe.name === recipeName
+            );
+
+            if (!recipeToUpdate) {
+                alert("Recipe not found!");
+                return;
+            }
+
+            const response = await fetch(`${BASE_URL}/recipes/${recipeToUpdate.id}`, {
+                method: "PUT",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${token}`,
+                },
+                body: JSON.stringify({
+                    name: recipeName,
+                    instructions: recipes
+                })     
+            });
+
+            if (response.ok) {
+                updateRecipeNameInput.value = "";
+                updateRecipeInstructionsInput.value = "";
+
+                getRecipes();
+            }
+
+        }catch(error){
+            alert("Oops, something is wrong. Try again later !");
+        }
     }
 
     /**
