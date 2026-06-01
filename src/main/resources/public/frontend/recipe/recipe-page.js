@@ -233,16 +233,14 @@ window.addEventListener("DOMContentLoaded", () => {
                 headers: {
                     "Content-Type": "application/json",
                     "Authorization": `Bearer ${token}`,
-                },
-                body: JSON.stringify({
-                    name: recipeName
-                })     
+                }
             });
-
+            
             if (response.ok) {
                 deleteRecipeNameInput.value = "";
-
                 getRecipes();
+            } else {
+                alert("You are not authorized to delete recipes!");
             }
 
         }catch(error){
