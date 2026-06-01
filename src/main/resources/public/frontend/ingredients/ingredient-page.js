@@ -129,6 +129,43 @@ async function c() {
  */
 async function deleteIngredient() {
     // Implement delete ingredient logic here
+    try{
+        const name = deleteIngredientNameInput.value.trim();
+
+        if(!name){
+            alert("Please, fill the name of the ingridient");
+            return;
+        }
+
+        const items = Array.from(ingredientListContainer.getElementsByTagName("li"));
+
+        const index = items.findIndex(li => li.textContent === name);
+
+        if (index === -1) {
+            alert("Ingredient not found!");
+            return;
+        }
+
+        const token = sessionStorage.getItem("auth-token");
+
+        const response = await fetch(`${BASE_URL}/ingredients/${index}`, {
+            method: "DELETE",
+            headers: {
+                "Authorization": `Bearer ${token}`
+            }
+        });
+
+        if (response.ok) {
+            deleteIngredientNameInput.value = "";
+
+            getIngredients();
+        } else {
+            alert("Failed to delete ingredient!");
+        }
+
+    } catch(error) {
+        alert("Something went wrong!");
+    }
 }
 
 
@@ -144,4 +181,20 @@ async function deleteIngredient() {
  */
 function refreshIngredientList() {
     // Implement ingredient list rendering logic here
+    try {
+        ingredientListContainer.innerHTML = "";
+
+        ingredients.forEach(ingredient => {
+            const li = document.createElement("li");
+            const p = document.createElement("p");
+
+            p.textContent = ingredient.name;
+
+            li.appendChild(p);
+            ingredientListContainer.appendChild(li);
+        });
+
+    } catch (error) {
+        alert("Something went wrong!");
+    }
 }

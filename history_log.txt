@@ -1,7 +1,7 @@
-commit 4e705a5208b9f65fcb22ac50b04b66e3d0263ae5
+commit 471cac1f2d888fc7dff997ba51d40a9efce4eb26
 Author: UntamedWW <UntamedWW@github.com>
-Date:   Mon Jun 1 18:50:58 2026 +0000
+Date:   Mon Jun 1 19:05:49 2026 +0000
 
-    fixed small bags in recipe-page.js.
+    Add ingredients-page.html; Add methonds getIngredients, addIngredient to js file.
 
- 2 files changed, 14 insertions(+), 20 deletions(-)
+ 3 files changed, 80 insertions(+), 6 deletions(-)
