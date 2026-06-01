@@ -46,30 +46,7 @@ logoutButton.addEventListener("click", processLogout)
  */
 async function processLogin() {
     // TODO: Retrieve username and password from input fields
-    // - Trim input and validate that neither is empty
-
-    // TODO: Create a requestBody object with username and password
-
     try {
-        // TODO: Send POST request to http://localhost:8081/login using fetch with requestOptions
-
-        // TODO: If response status is 200
-        // - Read the response as text
-        // - Response will be a space-separated string: "token123 true"
-        // - Split the string into token and isAdmin flag
-        // - Store both in sessionStorage using sessionStorage.setItem()
-
-        // TODO: Optionally show the logout button if applicable
-
-        // TODO: Add a small delay (e.g., 500ms) using setTimeout before redirecting
-        // - Use window.location.href to redirect to the recipe page
-
-        // TODO: If response status is 401
-        // - Alert the user with "Incorrect login!"
-
-        // TODO: For any other status code
-        // - Alert the user with a generic error like "Unknown issue!"
-
         const username = usernameInput.value.trim();
         const password = passwordInput.value.trim();
 
