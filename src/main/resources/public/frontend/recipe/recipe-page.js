@@ -181,7 +181,7 @@ window.addEventListener("DOMContentLoaded", () => {
                 },
                 body: JSON.stringify({
                     name: recipeName,
-                    instructions: recipes
+                    instructions: recipeIn
                 })     
             });
 
